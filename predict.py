@@ -31,7 +31,7 @@ model.classifier = torch.nn.Sequential(torch.nn.Linear(25088, 40),
 print(model)
 '''
 
-model = torch.load('model_vgg16_finetune.pt')
+model = torch.load('./checkpoints/model_vgg16_finetune.pt')
 data_test_img = datasets.ImageFolder(root="./datasets2/test2",
                                      transform = transform)
 data_loader_test_img = torch.utils.data.DataLoader(dataset=data_test_img,

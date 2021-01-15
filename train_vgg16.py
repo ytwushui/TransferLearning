@@ -69,7 +69,10 @@ model.classifier = torch.nn.Sequential(torch.nn.Linear(25088, 40),
 
 if use_gpu:
     model = model.cuda()
+
+
 cost = torch.nn.CrossEntropyLoss()
+# only optimize the model.classifier
 optimizer = torch.optim.Adam(model.classifier.parameters())
 
 #print(model)
@@ -106,7 +109,7 @@ for epoch in range(n_epochs):
 
             loss = cost(y_pred, y)
             #print(y_pred, y)
-            if param == "train" :
+            if param == "train":
                 loss.backward()
                 #torch.cuda.empty_cache()
                 optimizer.step()
@@ -124,6 +127,7 @@ for epoch in range(n_epochs):
         print("{}  Loss:{:.4f},  Correct{:.4f}".format(param, epoch_loss, epoch_correct))
     now_time = time.time() - since
     print("Training time is:{:.0f}m {:.0f}s".format(now_time // 60, now_time % 60))
+
 
 torch.save(model.state_dict(), "model_vgg16_finetune.pkl")
 torch.save(model, "model_vgg16_finetune.pt")
